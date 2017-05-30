@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
     private Client client;
     private EventLoger eventLogger;
-    public void App(Client client, EventLoger eventLogger){
+    public App(Client client, EventLoger eventLogger){
         this.client = client;
         this.eventLogger = eventLogger;
     }
