@@ -1,7 +1,7 @@
 package spring.core.beans;
 
 /**
- * Created by Meltic-Hollyolly on 11.05.2017.
+ *
  */
 public class Client {
 

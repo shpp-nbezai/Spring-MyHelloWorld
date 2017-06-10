@@ -1,12 +1,14 @@
 package spring.core;
 
+import org.springframework.context.ConfigurableApplicationContext;
 import spring.core.beans.Client;
+import spring.core.beans.Event;
 import spring.core.beans.EventLoger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by Meltic-Hollyolly on 11.05.2017.
+ *
  */
 public class App {
     private Client client;
@@ -17,14 +19,19 @@ public class App {
     }
 
     public static void main(String[] args){
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         App app = (App) ctx.getBean("app");
-        app.logEvent("Some event from user 1");
-        app.logEvent("Some event from user 2");
+
+        for (int i=0; i < 5; i++){
+            Event event = ctx.getBean(Event.class);
+            app.logEvent(event, "Some event from user " + i);
+        }
+        ctx.close();
     }
 
-    private void logEvent(String msg){
+    private void logEvent(Event event, String msg){
         String message = msg.replaceAll(client.getId().toString(), client.getFullName());
-        eventLogger.logEvent(message);
+        event.setMessage(message);
+        eventLogger.logEvent(event);
     }
 }
