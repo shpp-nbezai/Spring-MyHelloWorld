@@ -2,7 +2,6 @@ package spring.core.loggers;
 
 import org.apache.commons.io.FileUtils;
 import spring.core.beans.Event;
-import spring.core.beans.EventLoger;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.io.IOException;
 /**
  *
  */
-public class FileEventLogger implements EventLoger{
+public class FileEventLogger implements EventLogger {
 
     private String fileName;
     private File fileEventLog;

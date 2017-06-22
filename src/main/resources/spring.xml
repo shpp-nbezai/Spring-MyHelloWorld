@@ -8,17 +8,7 @@
     <bean id="client_first" class="spring.core.beans.Client">
         <constructor-arg type="java.lang.Integer" value = "1"/>
         <constructor-arg type="java.lang.String" value  = "Vasya Pupkin"/>
-    </bean>
-
-    <bean id="eventLogger" class="spring.core.loggers.ConsoleEventLoger"/>
-
-    <bean id="eventFileLogger" class="spring.core.loggers.FileEventLogger" init-method="init">
-        <constructor-arg type="java.lang.String" value="target/Spring-MyHelloWorldEvent_log.txt"/>
-    </bean>
-
-    <bean id="eventCacheFileLogger" class="spring.core.loggers.CacheFileEventLogger" destroy-method="destroy" init-method="init">
-        <constructor-arg type="java.lang.String" value="target/Spring-MyHelloWorldEvent_log.txt"/>
-        <constructor-arg value = "3"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
 
     <bean id="event" class = "spring.core.beans.Event" scope="prototype">
@@ -33,6 +23,14 @@
     <bean id="app" class="spring.core.App">
         <constructor-arg ref = "client_first"/>
         <constructor-arg ref = "eventCacheFileLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="eventLogger"/>
+                <entry key="ERROR" value-ref="combinetEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
+
+    <import resource="loggers.xml"/>
 
 </beans>

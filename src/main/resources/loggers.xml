@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="eventLogger" class="spring.core.loggers.ConsoleEventLogger"/>
+
+    <bean id="eventFileLogger" class="spring.core.loggers.FileEventLogger" init-method="init">
+        <constructor-arg type="java.lang.String" value="target/Spring-MyHelloWorldEvent_log.txt"/>
+    </bean>
+
+    <bean id="eventCacheFileLogger" class="spring.core.loggers.CacheFileEventLogger" destroy-method="destroy" init-method="init">
+        <constructor-arg type="java.lang.String" value="target/Spring-MyHelloWorldEvent_log.txt"/>
+        <constructor-arg value = "3"/>
+    </bean>
+
+    <bean id="combinetEventLogger" class="spring.core.loggers.CombinetEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="eventLogger"/>
+                <ref bean="eventFileLogger"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>
